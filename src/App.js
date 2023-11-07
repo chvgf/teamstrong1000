@@ -62,6 +62,12 @@ function App() {
       <GlobalStyle />
       <MainBg>
         <MainTitle />
+
+        <Routes>
+          {/* 지도 경로 추가 예정 */}
+          {/* <Route path="/map" element={<Map/>}/>  */}
+        </Routes>
+
         <Routes>
           <Route path="/" element={<BottomMenu />}>
             <Route path="/" element={<MainPage />}/>
