@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllTeamInfo, getLoginUser, getTeamInfo } from '../features/useinfo/userInfoSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTeamInfo, getLoginUser, getTeamInfo } from "../features/useinfo/userInfoSlice";
+import { useNavigate } from "react-router-dom";
 import logoImg from "../img/logo2.png";
-import axios from 'axios';
-
-
-
+import axios from "axios";
 
 const ClubWrapper = styled.div`
   background-color: #fff;
@@ -22,10 +19,10 @@ const ClubWrapper = styled.div`
     font-size: 24px;
     font-weight: 800;
   }
-  
+
   hr {
     margin: 0 37px;
-    border: 1px solid #4610C0;
+    border: 1px solid #4610c0;
   }
 
   .bigDiv {
@@ -34,26 +31,25 @@ const ClubWrapper = styled.div`
     flex-direction: column;
     padding: 0 37px;
   }
-  
+
   .제목 {
     margin-top: 20px;
     font-size: 18px;
     font-weight: 800;
     margin-bottom: 12px;
   }
-  
-  .권유{
+
+  .권유 {
     font-size: 14px;
     margin-bottom: 20px;
   }
-
 `;
 
 const MyClub = styled.div`
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 7px;
-  padding: 20px ;
+  padding: 20px;
   line-height: 20px;
   display: flex;
   justify-content: space-between;
@@ -68,7 +64,7 @@ const MyClub = styled.div`
     margin-bottom: 10px;
     text-align: center;
     border-radius: 30px;
-    background-color: #4610C0;
+    background-color: #4610c0;
   }
 
   h4 {
@@ -81,7 +77,7 @@ const MyClub = styled.div`
   span {
     font-weight: 900;
   }
-  
+
   .right {
     padding-left: 60px;
   }
@@ -89,7 +85,7 @@ const MyClub = styled.div`
   .members {
     margin-bottom: 8px;
     margin-right: 30px;
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     width: 100px;
     text-align: center;
     font-size: 14px;
@@ -100,15 +96,14 @@ const MyClub = styled.div`
     line-height: 18px;
     font-weight: 700;
     height: 100px;
-    border: 1px solid #4610C0;
+    border: 1px solid #4610c0;
   }
 
   .btn:hover {
-    background-color: #4610C0;
+    background-color: #4610c0;
     color: #fff;
   }
 `;
-
 
 const CommunityInsertBtn = styled.button`
   position: relative;
@@ -142,42 +137,36 @@ const CommunityInsertBtn = styled.button`
     align-items: center;
     justify-content: center;
     color: #fff;
-    border-radius: 10px 10px 0 10px ;
+    border-radius: 10px 10px 0 10px;
     font-size: 16px;
     width: 130px;
     height: 30px;
     top: -30px;
     right: 43px;
-    background-color: #4610C0;
+    background-color: #4610c0;
   }
 
   &:hover {
-    background-color: #4610C0;
+    background-color: #4610c0;
     color: #fff;
     box-shadow: 1px 1px 1px 1px #000;
   }
 `;
-
-
-
 
 function Club(props) {
   const dispatch = useDispatch();
   const teamInfo = useSelector(getTeamInfo);
   console.log(teamInfo);
   const navigate = useNavigate();
-  const [username, setUsername] = useState('')
-  const [clubName, setClubName] = useState('');
+  const [username, setUsername] = useState("");
+  const [clubName, setClubName] = useState("");
   const loginUser = useSelector(getLoginUser);
   console.log(loginUser);
-
-
-
 
   useEffect(() => {
     const data = async () => {
       try {
-        const response = await axios.get(`http://43.201.7.114/club`, { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/club`, { withCredentials: true });
         console.log(response);
         dispatch(getAllTeamInfo(response.data.data));
       } catch (error) {
@@ -188,26 +177,29 @@ function Club(props) {
     data();
   }, []);
 
-
   const handleInsert = async (teamName) => {
     if (loginUser) {
       try {
         // 클럽이 존재하는지 확인하는 로직 추가
-        const clubExistenceCheck = await axios.get(`http://43.201.7.114/club/${teamName}`, { withCredentials: true });
-    
+        const clubExistenceCheck = await axios.get(`${process.env.REACT_APP_ADDRESS}/club/${teamName}`, { withCredentials: true });
+
         if (!clubExistenceCheck.data.flag) {
           // 클럽이 존재하지 않는 경우
-          alert('존재하지 않는 클럽입니다.');
+          alert("존재하지 않는 클럽입니다.");
           return;
         }
-    
+
         // 클럽에 가입하는 로직
-        const response = await axios.post(`http://43.201.7.114/club/${teamName}/add-member`, {
-          nickname: loginUser.nickname,
-        }, { withCredentials: true });
-    
+        const response = await axios.post(
+          `${process.env.REACT_APP_ADDRESS}/club/${teamName}/add-member`,
+          {
+            nickname: loginUser.nickname,
+          },
+          { withCredentials: true }
+        );
+
         console.log(response);
-    
+
         if (response.data.flag) {
           alert(response.data.message);
         } else {
@@ -217,42 +209,53 @@ function Club(props) {
         console.error(error);
       }
     } else {
-      alert('로그인이 필요합니다!')
-    }}
-  
+      alert("로그인이 필요합니다!");
+    }
+  };
 
-
-  
   return (
     <ClubWrapper>
-      <div className='매칭찾기'>클럽🏸</div>
-      <hr/>
+      <div className="매칭찾기">클럽🏸</div>
+      <hr />
 
-      <div className='bigDiv'>
-        <p className='제목'>클럽 리스트</p>
-        <span className='권유'>클럽에 가입해 다양한 활동에 참여해보세요 !</span>
-          {teamInfo?.map((myTeam) => {
-            return (
-              <MyClub>
-                <div className='left'>
-                  <div className='team'>TEAM</div>
-                  <h4>{myTeam.teamName}</h4>
-                  <p><span>지역 | </span>{myTeam.maindistrict}</p>
-                </div>
-                <div className='right'>
-                {myTeam.members.map(member => <div className='members'> {member} </div>)}
-                </div>
-                <button className='btn' onClick={() => { handleInsert(myTeam.teamName) }}>가입하기</button>
-              </MyClub>
-              
-            )
-          })}
+      <div className="bigDiv">
+        <p className="제목">클럽 리스트</p>
+        <span className="권유">클럽에 가입해 다양한 활동에 참여해보세요 !</span>
+        {teamInfo?.map((myTeam) => {
+          return (
+            <MyClub>
+              <div className="left">
+                <div className="team">TEAM</div>
+                <h4>{myTeam.teamName}</h4>
+                <p>
+                  <span>지역 | </span>
+                  {myTeam.maindistrict}
+                </p>
+              </div>
+              <div className="right">
+                {myTeam.members.map((member) => (
+                  <div className="members"> {member} </div>
+                ))}
+              </div>
+              <button
+                className="btn"
+                onClick={() => {
+                  handleInsert(myTeam.teamName);
+                }}
+              >
+                가입하기
+              </button>
+            </MyClub>
+          );
+        })}
 
-      <CommunityInsertBtn onClick={() => {navigate('/clubInsert')}}>
-        +
-        <span className='hoverText'>클럽 개설하기</span>
-      </CommunityInsertBtn>
-
+        <CommunityInsertBtn
+          onClick={() => {
+            navigate("/clubInsert");
+          }}
+        >
+          +<span className="hoverText">클럽 개설하기</span>
+        </CommunityInsertBtn>
       </div>
     </ClubWrapper>
   );
