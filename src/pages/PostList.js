@@ -145,7 +145,8 @@ function PostList(props) {
   };
 
   const handleRandom = async () => {
-    await axios.post(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
+    await axios.get(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
+    navigate("/RandomMatching");
   };
 
   return (
@@ -269,14 +270,7 @@ function PostList(props) {
 
       <div className="insertMatching">
         <PostInsertBtn onClick={() => navigate("/postInsert")}>게시글 추가</PostInsertBtn>
-        <RandomMatching
-          onClick={() => {
-            navigate("/RandomMatching");
-            handleRandom();
-          }}
-        >
-          *랜덤 매칭*
-        </RandomMatching>
+        <RandomMatching onClick={handleRandom}>*랜덤 매칭*</RandomMatching>
       </div>
     </PostListWrapper>
   );

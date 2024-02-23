@@ -233,7 +233,7 @@ function CommunityListItem(props) {
         <div className="div-between">
           {
             <div>
-              <button class={`${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`} value={iconRed} onClick={handleLike}>
+              <button className={`${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`} value={iconRed} onClick={handleLike}>
                 favorite
               </button>
               <span>{like}</span> {/* 좋아요 수 */}
