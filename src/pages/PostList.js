@@ -126,7 +126,6 @@ function PostList(props) {
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
   const postInsert = useSelector(userPostList);
-  console.log(postInsert);
 
   // 필터
   const handleDistrict0 = () => {
@@ -145,7 +144,7 @@ function PostList(props) {
   };
 
   const handleRandom = async () => {
-    await axios.get(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
+    // await axios.get(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
     navigate("/RandomMatching");
   };
 
