@@ -20,7 +20,12 @@ const RanItemWrapper = styled.div`
     height: 200px;
     margin: 70px auto;
     padding: 20px;
+    border-radius: 5px;
+    transition: 0.1s;
     cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
     span {
       display: block;
       color: #000;
@@ -39,9 +44,22 @@ const RanItemWrapper = styled.div`
     margin-bottom: 34px;
   }
   .reMatchingBtn {
-    width: 100px;
-    height: 50px;
-    margin: 0 auto;
+    margin: 10px auto;
+    background-color: #eee;
+    box-shadow: 1px 1px 1px 1px gray;
+    width: 200px;
+    height: 35px;
+    border-radius: 30px;
+    border: none;
+    line-height: 35px;
+    opacity: 0.7;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+      background-color: #4610c0;
+      color: #fff;
+      box-shadow: 1px 1px 1px 1px #000;
+    }
   }
 `;
 
@@ -79,10 +97,10 @@ function RandomMatching(props) {
 
   return (
     <RanItemWrapper>
-      <div className="랜덤매칭">랜덤매칭</div>
+      <header className="랜덤매칭">랜덤매칭</header>
       <hr />
-      <div className="matchingBox">
-        <div
+      <main className="matchingBox">
+        <section
           className="matchingBoxItem"
           onClick={() => {
             navigate(
@@ -96,23 +114,15 @@ function RandomMatching(props) {
         >
           {
             <>
-              <span>
-                제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].title} <br />
-              </span>
-              <span>
-                게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].game} <br />
-              </span>
-              <span>
-                지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].district} <br />
-              </span>
-              <span>
-                구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].id.grade} <br />
-              </span>
+              <span>제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].title}</span>
+              <span>게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].game}</span>
+              <span>지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].district}</span>
+              <span>구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].id.grade}</span>
               <span>날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].selectDate}</span>
             </>
           }
-        </div>
-        <div
+        </section>
+        <section
           className="matchingBoxItem"
           onClick={() => {
             navigate(
@@ -126,22 +136,14 @@ function RandomMatching(props) {
         >
           {
             <>
-              <span>
-                제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].title} <br />
-              </span>
-              <span>
-                게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].game} <br />
-              </span>
-              <span>
-                지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].district} <br />
-              </span>
-              <span>
-                구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].id.grade} <br />
-              </span>
+              <span>제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].title}</span>
+              <span>게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].game}</span>
+              <span>지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].district}</span>
+              <span>구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].id.grade}</span>
               <span>날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].selectDate}</span>
             </>
           }
-        </div>
+        </section>
         {/* <div
           className="matchingBoxItem"
           onClick={() => {
@@ -188,7 +190,7 @@ function RandomMatching(props) {
         <button className="reMatchingBtn" onClick={handleRandom}>
           재 매칭
         </button>
-      </div>
+      </main>
     </RanItemWrapper>
   );
 }
