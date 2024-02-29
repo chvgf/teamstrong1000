@@ -1,6 +1,5 @@
 import { createGlobalStyle, styled } from "styled-components";
 import { Reset } from "styled-reset";
-import "./font.css";
 
 import { Route, Routes } from "react-router-dom";
 import BottomMenu from "./pages/BottomMenu";

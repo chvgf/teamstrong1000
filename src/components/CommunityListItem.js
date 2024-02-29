@@ -87,6 +87,10 @@ const CommunityListItemWrapper = styled.div`
     color: red;
     font-weight: bold;
   }
+  .editDel {
+    background-color: #fff;
+    margin-left: 5px;
+  }
 `;
 
 function CommunityListItem(props) {
@@ -251,6 +255,7 @@ function CommunityListItem(props) {
           }
           <form>
             <button
+              className="editDel"
               onClick={() => {
                 handleDelete();
               }}
@@ -258,6 +263,7 @@ function CommunityListItem(props) {
               🗑
             </button>
             <button
+              className="editDel"
               onClick={() => {
                 handleEdit();
               }}

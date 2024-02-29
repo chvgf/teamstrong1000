@@ -13,23 +13,54 @@ const RanItemWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-  .matchingBoxItem {
-    border: 1px solid #1c1b1f;
-    width: 300px;
-    height: 200px;
-    margin: 70px auto;
-    padding: 20px;
-    border-radius: 5px;
-    transition: 0.1s;
-    cursor: pointer;
-    &:hover {
-      background-color: #eee;
-    }
-    span {
-      display: block;
-      color: #000;
-      padding: 5px 0;
+    .matchingBoxItem {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 417px;
+      height: 200px;
+      border: 1px solid #e9e9e9;
+      border-radius: 8px;
+      text-align: left;
+      padding: 30px 15px;
+      margin: 18px auto;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        border: 1px solid #4610c0;
+      }
+      .title {
+        display: block;
+        font-size: 18px;
+        margin: 0 auto;
+        font-weight: bold;
+      }
+      .GDGcentet {
+        margin: 0 auto;
+      }
+      .game,
+      .grade,
+      .district {
+        font-size: 16px;
+        margin: 0 13px;
+      }
+      .selectDate {
+        text-align: center;
+        line-height: 23px;
+        border-radius: 20px;
+        margin: 0 auto;
+        font-size: 12px;
+        color: #9b9b9b;
+        display: block;
+        width: 300px;
+        height: 30px;
+        background-color: #5c5c5c;
+        color: #fff;
+        padding: 3px;
+      }
+      &:hover {
+        background-color: #eee;
+      }
     }
   }
   .랜덤매칭 {
@@ -114,11 +145,13 @@ function RandomMatching(props) {
         >
           {
             <>
-              <span>제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].title}</span>
-              <span>게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].game}</span>
-              <span>지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].district}</span>
-              <span>구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].id.grade}</span>
-              <span>날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].selectDate}</span>
+              <span className="title">제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].title}</span>
+              <div className="GDGcentet">
+                <span className="game">게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].game}</span>
+                <span className="district">지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].district}</span>
+                <span className="grade">구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].id.grade}</span>
+              </div>
+              <span className="selectDate">날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[0]].selectDate}</span>
             </>
           }
         </section>
@@ -136,11 +169,13 @@ function RandomMatching(props) {
         >
           {
             <>
-              <span>제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].title}</span>
-              <span>게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].game}</span>
-              <span>지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].district}</span>
-              <span>구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].id.grade}</span>
-              <span>날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].selectDate}</span>
+              <span className="title">제목: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].title}</span>
+              <div className="GDGcentet">
+                <span className="game">게임: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].game}</span>
+                <span className="district">지역: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].district}</span>
+                <span className="grade">구력: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].id.grade}</span>
+              </div>
+              <span className="selectDate">날짜: {(reMatching || getMatchingPost)?.data.data[randomIndexArray[1]].selectDate}</span>
             </>
           }
         </section>
