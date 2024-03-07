@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, pushUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { getUserInfo, pushUserInfo, selectUserList } from "../features/useinfo/userInfoSlice";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignArea = styled.div`
   display: flex;
@@ -18,21 +18,20 @@ const SignArea = styled.div`
   button {
     margin-top: 20px;
     border: none;
-    background: #4610C0;
+    background: #4610c0;
     color: #fff;
     padding: 5px 10px;
     border-radius: 15px;
     transition: 0.3s;
     cursor: pointer;
-    border: 1px solid #4610C0;
+    border: 1px solid #4610c0;
   }
 
   button:hover {
     background: #fff;
-    color: #4610C0;
-    border: 1px solid #4610C0;
+    color: #4610c0;
+    border: 1px solid #4610c0;
   }
-
 
   input {
     border-radius: 10px;
@@ -42,9 +41,18 @@ const SignArea = styled.div`
     height: 40px;
     padding: 13px;
   }
-  input:focus {
+  select {
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    transition: 0.3s;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+  }
+  input:focus,
+  select:focus {
     outline: none;
-    border: 2px solid #4610C0;
+    border: 2px solid #4610c0;
     background: #d8d1e8;
   }
 
@@ -54,36 +62,41 @@ const SignArea = styled.div`
   }
 `;
 
-
 function SignUp(props) {
-  const [inputUserId, setInputUserId] = useState('');
-  const [inputUserPass, setInputUserPass] = useState('');
-  const [inputUserPassCheck, setInputUserPassCheck] = useState('');
-  const [inputUserNick, setInputUserNick] = useState('');
-  const [inputUserClub, setInputUserClub] = useState('')
-  const signUp = { id: inputUserId, passwd: inputUserPass, nick: inputUserNick, teamName: inputUserClub}
+  const [inputUserId, setInputUserId] = useState("");
+  const [inputUserPass, setInputUserPass] = useState("");
+  const [inputUserPassCheck, setInputUserPassCheck] = useState("");
+  const [inputUserNick, setInputUserNick] = useState("");
+  const [inputUserGrade, setInputUserGrade] = useState("");
+  const [inputUserClub, setInputUserClub] = useState("");
+  const signUp = { id: inputUserId, passwd: inputUserPass, nick: inputUserNick, grade: inputUserGrade, teamName: inputUserClub };
   const navigate = useNavigate();
   const userId = useSelector(selectUserList);
 
-  
-
-
-  const handleInputUserId = (e) => {setInputUserId(e.target.value)};
+  const handleInputUserId = (e) => {
+    setInputUserId(e.target.value);
+  };
   const handleInputUserPass = (e) => setInputUserPass(e.target.value);
-  const handleInputUserPassCheck = (e) => {setInputUserPassCheck(e.target.value);}
+  const handleInputUserPassCheck = (e) => {
+    setInputUserPassCheck(e.target.value);
+  };
   const handleInputUserNick = (e) => setInputUserNick(e.target.value);
-  const handleInputUserClub = (e) => {setInputUserClub(e.target.value);}
+  const handleInputGrade = (e) => {
+    return setInputUserGrade(e.target.value);
+  };
+  const handleInputUserClub = (e) => {
+    setInputUserClub(e.target.value);
+  };
 
   const handlePushUserInfo = async (signUp) => {
-    const result = await axios.post(`http://43.201.7.114/register`, signUp)
+    const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/register`, signUp);
     if (result.data.flag === true) {
-      alert('가입을 환영합니다! 로그인해주세요!')
-      navigate('/login')
+      alert("가입을 환영합니다! 로그인해주세요!");
+      navigate("/login");
     } else {
-      alert(`${result.data.message}`)
+      alert(`${result.data.message}`);
     }
     console.log(result.data);
-
 
     // if (inputUserId === '') {
     //   alert('ID를 입력해주세요!')
@@ -105,7 +118,7 @@ function SignUp(props) {
 
   return (
     <SignArea>
-      아이디 <input type='text' value={inputUserId} onChange={handleInputUserId}/>
+      아이디 <input type="text" value={inputUserId} onChange={handleInputUserId} />
       {/* {
         !(inputUserId !== '')
         ? <span></span>
@@ -113,16 +126,17 @@ function SignUp(props) {
           ? <span>이미 가입된 아이디입니다.</span>
           : <span>사용할 수 있는 아이디입니다.</span>
       } */}
-      비밀번호 <input type='password' value={inputUserPass} onChange={handleInputUserPass}/>
-      비밀번호 확인<input type='password' value={inputUserPassCheck} onChange={handleInputUserPassCheck}/>
-      {
-        !(inputUserPass !== '')
-        ? <span></span>
-        : inputUserPass === inputUserPassCheck
-          ? <span>비밀번호가 일치합니다.</span>
-          : <span>비밀번호가 일치하지 않습니다.</span>
-      }
-      닉네임 <input type='text' value={inputUserNick} onChange={handleInputUserNick}/>
+      비밀번호 <input type="password" value={inputUserPass} onChange={handleInputUserPass} />
+      비밀번호 확인
+      <input type="password" value={inputUserPassCheck} onChange={handleInputUserPassCheck} />
+      {!(inputUserPass !== "") ? (
+        <span></span>
+      ) : inputUserPass === inputUserPassCheck ? (
+        <span>비밀번호가 일치합니다.</span>
+      ) : (
+        <span>비밀번호가 일치하지 않습니다.</span>
+      )}
+      닉네임 <input type="text" value={inputUserNick} onChange={handleInputUserNick} />
       {/* {
         !(inputUserNick !== '')
         ? <span></span>
@@ -130,11 +144,20 @@ function SignUp(props) {
           ? <span>이미 가입된 닉네임입니다.</span>
           : <span>사용할 수 있는 닉네임입니다.</span>
       } */}
-      소속 클럽 <input type='text' value={inputUserClub} onChange={handleInputUserClub}/>
+      구력
+      <select value={inputUserGrade} onChange={handleInputGrade}>
+        <option>자강조</option>
+        <option>A조</option>
+        <option>B조</option>
+        <option>C조</option>
+        <option>D조</option>
+        <option>초심조</option>
+        <option>해당없음</option>
+      </select>
+      <span>*필수</span>
+      소속 클럽 <input type="text" value={inputUserClub} onChange={handleInputUserClub} />
       <span>*선택사항</span>
-      <button onClick={() => handlePushUserInfo(signUp)}>
-        가입하기
-      </button>
+      <button onClick={() => handlePushUserInfo(signUp)}>가입하기</button>
     </SignArea>
   );
 }

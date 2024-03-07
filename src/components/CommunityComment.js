@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import CommunityCommentListItem from './CommunityCommentListItem';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import CommunityCommentListItem from "./CommunityCommentListItem";
+import axios from "axios";
+import { useEffect } from "react";
+import { getLoginUser } from "../features/useinfo/userInfoSlice";
 
 const CommunityCommentWrapper = styled.div`
   display: flex;
@@ -27,9 +27,9 @@ const CommunityCommentWrapper = styled.div`
   &:last-child {
     margin-bottom: 75px;
   }
-& + & {
-  margin-top: 18px;
-}
+  & + & {
+    margin-top: 18px;
+  }
 `;
 const CommunityCommentList = styled.div`
   overflow-y: scroll;
@@ -48,7 +48,7 @@ const CommunityCommentIsert = styled.div`
     border: none;
   }
   button {
-    background-color: #FF5959;
+    background-color: #ff5959;
     outline: none;
     height: 40px;
     width: 80px;
@@ -65,70 +65,71 @@ function CommunityComment(props) {
   const postId = props.postId;
   const filterComment = addCommentE?.filter((id) => {
     return id.commentPostId == postId;
-  })
+  });
   const changeAddComment = (e) => setAddComment(e.target.value);
-  const handleAddComment = async () => { // 댓글 등록 버튼
+  const handleAddComment = async () => {
+    // 댓글 등록 버튼
     if (userNic.userId) {
       if (!addComment) {
-        alert('댓글을 입력하쇼')
-    } else {
-      const result = await axios.post(`http://43.201.7.114/community/communityComment`, {addComment, postId}, {withCredentials:true});
-      
-      setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
-      setAddComment('');
-    }
+        alert("댓글을 입력하쇼");
       } else {
-        alert('로그인하쇼')
+        const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/community/communityComment`, { addComment, postId }, { withCredentials: true });
+
+        setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
+        setAddComment("");
       }
+    } else {
+      alert("로그인하쇼");
     }
+  };
   useEffect(() => {
-    const getComments = async () => {  // 댓글 리스트 받아오기
+    const getComments = async () => {
+      // 댓글 리스트 받아오기
       try {
-      const result = await axios.get('http://43.201.7.114/community/communityComment', {withCredentials:true});
-      setAddCommentE(result.data.comments)
-    } catch (err) {
-      console.error(err);
-    }};
+        const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/community/communityComment`, { withCredentials: true });
+        setAddCommentE(result.data.comments);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     getComments();
   }, []);
 
   const commentDel = async () => {
     try {
-      const result = await axios.get('http://43.201.7.114/community/communityComment', {withCredentials:true});
-      setAddCommentE(result.data.comments)
+      const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/community/communityComment`, { withCredentials: true });
+      setAddCommentE(result.data.comments);
     } catch (err) {
       console.error(err);
-    }};
-  
-    return (
-      <CommunityCommentWrapper>
+    }
+  };
+
+  return (
+    <CommunityCommentWrapper>
       <CommunityCommentList>
         {filterComment.map((addCommentMap) => {
-          return <CommunityCommentListItem
-            key={addCommentMap._id}
-            commentPostId={addCommentMap._id}
-            addComment={addCommentMap.addComment}
-            userId={addCommentMap.userId}
-            commentDel={commentDel}
-            
-          />
+          return (
+            <CommunityCommentListItem
+              key={addCommentMap._id}
+              commentPostId={addCommentMap._id}
+              addComment={addCommentMap.addComment}
+              userId={addCommentMap.userId}
+              commentDel={commentDel}
+            />
+          );
         })}
       </CommunityCommentList>
 
-
       <CommunityCommentIsert>
-        <input
-          type='text'
-          name='content'
-          value={addComment}
-          onChange={changeAddComment}
-        />
+        <input type="text" name="content" value={addComment} onChange={changeAddComment} />
         <button
-          type='submit'
-          onClick={() => {handleAddComment()}}
-          >
-            게시
-          </button>
+          type="submit"
+          onClick={() => {
+            handleAddComment();
+          }}
+        >
+          게시
+        </button>
       </CommunityCommentIsert>
     </CommunityCommentWrapper>
   );

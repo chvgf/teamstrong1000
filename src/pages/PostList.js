@@ -1,25 +1,29 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import PostListItem from '../components/PostListItem';
+import React from "react";
+import styled, { css } from "styled-components";
+import PostListItem from "../components/PostListItem";
 import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUserList } from '../features/useinfo/userInfoSlice';
-import { useNavigate } from 'react-router';
-import { getAllUserPostList, handleFilter, postInsertList, sortList, userPostList } from '../features/postListSlice/postListInsertSlice';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useState } from 'react';
-import DistrictModal from '../components/DistrictModal';
-import { PulseLoader } from 'react-spinners';
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserList } from "../features/useinfo/userInfoSlice";
+import { useNavigate } from "react-router";
+import { getAllUserPostList, handleFilter, postInsertList, sortList, userPostList } from "../features/postListSlice/postListInsertSlice";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import DistrictModal from "../components/DistrictModal";
+import { PulseLoader } from "react-spinners";
 
-const PostInsertBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  left: 492px;
-  right: 0;
-  bottom: 60px;
+const PostListWrapper = styled.div`
   margin: 0 auto;
+  margin-bottom: 70px;
+  width: 417px;
+  .insertMatching {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 70px;
+  }
+`;
+const PostInsertBtn = styled.button`
   background-color: #eee;
   box-shadow: 1px 1px 1px 1px gray;
   width: 200px;
@@ -29,17 +33,33 @@ const PostInsertBtn = styled.button`
   line-height: 35px;
   opacity: 0.7;
   transition: 0.3s;
+  margin: 0 10px;
   cursor: pointer;
   &:hover {
-    background-color: #4610C0;
+    background-color: #4610c0;
     color: #fff;
     box-shadow: 1px 1px 1px 1px #000;
   }
 `;
-const PostListWrapper = styled.div`
-  margin: 0 auto;
-  margin-bottom: 70px;
-  width: 417px;
+const RandomMatching = styled.button`
+  background-color: #eee;
+  font-weight: bold;
+  color: #4610c0;
+  box-shadow: 1px 1px 1px 1px gray;
+  width: 200px;
+  height: 35px;
+  border-radius: 30px;
+  border: none;
+  line-height: 35px;
+  opacity: 0.7;
+  transition: 0.3s;
+  margin: 0 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #4610c0;
+    color: #fff;
+    box-shadow: 1px 1px 1px 1px #000;
+  }
 `;
 const PostListBtn1 = styled.button`
   width: 120px;
@@ -53,7 +73,7 @@ const PostListBtn1 = styled.button`
   font-size: 12px;
   transition: 0.1s;
   &:hover {
-    background-color: #E31E1E;
+    background-color: #e31e1e;
   }
 `;
 const PostListBtn2 = styled.button`
@@ -69,13 +89,14 @@ const PostListBtn2 = styled.button`
   transition: 0.1s;
 
   &:hover {
-    background-color: #E31E1E;
+    background-color: #e31e1e;
   }
-  ${props => props.$showModal && css`
-    background-color: #4610C0;
-  `}
+  ${(props) =>
+    props.$showModal &&
+    css`
+      background-color: #4610c0;
+    `}
 `;
-
 
 function PostList(props) {
   const dispatch = useDispatch();
@@ -85,49 +106,67 @@ function PostList(props) {
   const [district3, setDistrict3] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   const handleModal = () => {
-    setShowModal(!showModal)
+    setShowModal(!showModal);
   };
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`${process.env.REACT_APP_ADDRESS}`)
-    .then((response) => {
-      dispatch(getAllUserPostList(response.data))
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+    axios
+      .get(`${process.env.REACT_APP_ADDRESS}`)
+      .then((response) => {
+        dispatch(getAllUserPostList(response.data));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     setLoading(false);
-  },[])
-  
+  }, []);
+
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
   const postInsert = useSelector(userPostList);
-  console.log(postInsert);
 
   // 필터
   const handleDistrict0 = () => {
-    setDistrict(false)
-    setDistrict2(false)
-    setDistrict3(false)
+    setDistrict(false);
+    setDistrict2(false);
+    setDistrict3(false);
   };
   const handleDistrict = () => {
-    setDistrict(!district)
+    setDistrict(!district);
   };
   const handleDistrict2 = () => {
-    setDistrict2(!district2)
+    setDistrict2(!district2);
   };
   const handleDistrict3 = () => {
-    setDistrict3(!district3)
+    setDistrict3(!district3);
   };
 
   return (
     <PostListWrapper>
-      <PostListBtn1 onClick={() => {dispatch(sortList())}}><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
-      <PostListBtn2 $showModal={showModal} onClick={handleModal}>모든지역 <BsChevronDown /></PostListBtn2>
-      {showModal && <DistrictModal postList={postInsert} district={district} district2={district2} district3={district3} handleDistrict0={handleDistrict0} handleDistrict={handleDistrict} handleDistrict2={handleDistrict2} handleDistrict3={handleDistrict3}/>}
+      <PostListBtn1
+        onClick={() => {
+          dispatch(sortList());
+        }}
+      >
+        <BsArrowDownUp /> 일정 가까운 순
+      </PostListBtn1>
+      <PostListBtn2 $showModal={showModal} onClick={handleModal}>
+        모든지역 <BsChevronDown />
+      </PostListBtn2>
+      {showModal && (
+        <DistrictModal
+          postList={postInsert}
+          district={district}
+          district2={district2}
+          district3={district3}
+          handleDistrict0={handleDistrict0}
+          handleDistrict={handleDistrict}
+          handleDistrict2={handleDistrict2}
+          handleDistrict3={handleDistrict3}
+        />
+      )}
       {/* {postInsert.map((postInsertMap) => {  
         return <PostListItem
           key={postInsertMap.title}  
@@ -140,83 +179,93 @@ function PostList(props) {
         />
       })} */}
 
-      {!district && !district2 && !district3 && postInsert.map((postInsertMap) => {
-        return <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
-        />
-      })}
-      {district && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '서울' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
-        />
-      })}
-      {district2 && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '경기' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
-        />
-      })}
-      {district3 && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '인천' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
-        />
-      })}
+      {!district &&
+        !district2 &&
+        !district3 &&
+        postInsert.map((postInsertMap) => {
+          return (
+            <PostListItem
+              key={postInsertMap._id}
+              address={postInsertMap._id}
+              id={postInsertMap.id.userId}
+              title={postInsertMap.title}
+              content={postInsertMap.content}
+              selectDate={postInsertMap.selectDate}
+              gender={postInsertMap.gender}
+              joinPersonnel={postInsertMap.joinPersonnel}
+              game={postInsertMap.game}
+              district={postInsertMap.district}
+              joinMember={postInsertMap.joinMember}
+            />
+          );
+        })}
+      {district &&
+        postInsert.map((postInsertMap) => {
+          return (
+            postInsertMap.district === "서울" && (
+              <PostListItem
+                key={postInsertMap._id}
+                address={postInsertMap._id}
+                id={postInsertMap.id.userId}
+                title={postInsertMap.title}
+                content={postInsertMap.content}
+                selectDate={postInsertMap.selectDate}
+                gender={postInsertMap.gender}
+                joinPersonnel={postInsertMap.joinPersonnel}
+                game={postInsertMap.game}
+                district={postInsertMap.district}
+                joinMember={postInsertMap.joinMember}
+              />
+            )
+          );
+        })}
+      {district2 &&
+        postInsert.map((postInsertMap) => {
+          return (
+            postInsertMap.district === "경기" && (
+              <PostListItem
+                key={postInsertMap._id}
+                address={postInsertMap._id}
+                id={postInsertMap.id.userId}
+                title={postInsertMap.title}
+                content={postInsertMap.content}
+                selectDate={postInsertMap.selectDate}
+                gender={postInsertMap.gender}
+                joinPersonnel={postInsertMap.joinPersonnel}
+                game={postInsertMap.game}
+                district={postInsertMap.district}
+                joinMember={postInsertMap.joinMember}
+              />
+            )
+          );
+        })}
+      {district3 &&
+        postInsert.map((postInsertMap) => {
+          return (
+            postInsertMap.district === "인천" && (
+              <PostListItem
+                key={postInsertMap._id}
+                address={postInsertMap._id}
+                id={postInsertMap.id.userId}
+                title={postInsertMap.title}
+                content={postInsertMap.content}
+                selectDate={postInsertMap.selectDate}
+                gender={postInsertMap.gender}
+                joinPersonnel={postInsertMap.joinPersonnel}
+                game={postInsertMap.game}
+                district={postInsertMap.district}
+                joinMember={postInsertMap.joinMember}
+              />
+            )
+          );
+        })}
 
+      {loading && <PulseLoader color="#4610C0" margin={25} size={25} />}
 
-      {loading &&
-        <PulseLoader
-          color="#4610C0"
-          margin={25}
-          size={25}
-        />
-      }
-
-      <PostInsertBtn
-        onClick={() => navigate('/postInsert')}
-      >
-        게시글 추가
-      </PostInsertBtn>
-
-
+      <div className="insertMatching">
+        <PostInsertBtn onClick={() => navigate("/postInsert")}>게시글 추가</PostInsertBtn>
+        <RandomMatching onClick={() => navigate("/RandomMatching")}>*랜덤 매칭*</RandomMatching>
+      </div>
     </PostListWrapper>
   );
 }

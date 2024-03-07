@@ -10,7 +10,7 @@ import MainPage from "./pages/MainPage";
 import imgBg from "./img/background_01.png";
 import imgBgTitle from "./img/background.title.png";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import PostInsert from "./components/PostInsert";
 import Community from "./pages/Community";
 import MyCalendar from "./pages/MyCalendar";
@@ -23,8 +23,7 @@ import ClubInsert from "./pages/ClubInsert";
 import CommunityEdit from "./pages/CommunityEdit";
 import EditMatchPost from "./pages/EditMatchPost";
 import RequireAuth from "./auth/RequireAuth";
-
-
+import RandomMatching from "./pages/RandomMatching";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -89,12 +88,12 @@ function App() {
         <MainTitle />
         <Routes>
           <Route path="/" element={<BottomMenu />}>
-            <Route path="/" element={<MainPage />}/>
+            <Route path="/" element={<MainPage />} />
             {/* <Route path="/login" element={<Login />}/> */}
             {/* <Route path="/myPage" element={<MyPage />}/> */}
-            <Route path="/login" element={<Login />}/>
-            <Route 
-              path="/myPage" 
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/myPage"
               element={
                 <RequireAuth>
                   <MyPage />
@@ -102,7 +101,7 @@ function App() {
               }
             />
             <Route
-              path="/myCalendar" 
+              path="/myCalendar"
               element={
                 <RequireAuth>
                   <MyCalendar />
@@ -111,16 +110,16 @@ function App() {
             />
             <Route path="/club" element={<Club />} />
             <Route
-              path="/clubInsert" 
+              path="/clubInsert"
               element={
                 <RequireAuth>
                   <ClubInsert />
                 </RequireAuth>
               }
             />
-            <Route path="/signUp" element={<SignUp />}/>
-            <Route 
-              path="/postInsert" 
+            <Route path="/signUp" element={<SignUp />} />
+            <Route
+              path="/postInsert"
               element={
                 <RequireAuth>
                   <PostInsert />
@@ -128,30 +127,26 @@ function App() {
               }
             />
             {/* <Route path="/matchingPost/:postId" element={<PostDetail />}/> */}
-            <Route 
-              path="/matchingPost/:postId" 
+            <Route
+              path="/matchingPost/:postId"
               element={
                 <RequireAuth>
                   <PostDetail />
                 </RequireAuth>
               }
             />
-            <Route path="/editMatchPost/:postId" element={<EditMatchPost />}/>
+            <Route path="/editMatchPost/:postId" element={<EditMatchPost />} />
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />
             <Route path="/CommunityEdit/:postId" element={<CommunityEdit />} />
             <Route path="/map" element={<Map />} />
             <Route path="/ranking" element={<Ranking />} />
+            <Route path="/RandomMatching" element={<RandomMatching />} />
             <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>
         </Routes>
       </MainBg>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        pauseOnFocusLoss={false}
-        theme="dark"
-        />
+      <ToastContainer position="bottom-right" autoClose={3000} pauseOnFocusLoss={false} theme="dark" />
     </>
   );
 }
