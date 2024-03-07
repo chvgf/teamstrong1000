@@ -105,8 +105,6 @@ function ModalBasic(props) {
       console.error(error);
     }
   }, []);
-  console.log(getMatchingListState);
-  console.log(getCommunityListState);
 
   // 매칭 리스트 필터
   const searchFilter = getMatchingListState?.filter(
