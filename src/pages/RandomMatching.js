@@ -102,17 +102,24 @@ function RandomMatching(props) {
 
   useEffect(() => {
     const matchingPostGet = async () => {
-      const getpost = await axios.get(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
-      setGetMatchingPost(getpost);
-      console.log(getpost);
+      try {
+        const getpost = await axios.get(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, { withCredentials: true });
+        setGetMatchingPost(getpost);
+      } catch (error) {
+        console.error(error);
+      }
     };
     matchingPostGet();
   }, []);
 
   // 재 매칭 버튼
   const handleRandom = async () => {
-    const getSetpost = await axios.post(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, "", { withCredentials: true });
-    setReMatching(getSetpost);
+    try {
+      const getSetpost = await axios.post(`${process.env.REACT_APP_ADDRESS}/RandomMatching`, "", { withCredentials: true });
+      setReMatching(getSetpost);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // 랜덤, 중복제거
