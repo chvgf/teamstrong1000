@@ -1,19 +1,17 @@
-import { Container as MapDiv } from 'react-naver-maps'
-import { NavermapsProvider } from 'react-naver-maps';
-import React, { useEffect, useRef } from 'react';
-import MapSetting from '../components/MapSetting';
-
-
+import { Container as MapDiv } from "react-naver-maps";
+import { NavermapsProvider } from "react-naver-maps";
+import React, { useEffect, useRef } from "react";
+import MapSetting from "../components/MapSetting";
 
 function Map() {
-
   return (
-    <NavermapsProvider ncpClientId='ypjs3qi2oz'>
+    <NavermapsProvider ncpClientId="f00j7bpxaw">
       <MapDiv
         style={{
-          position: 'relative',
-          width: '530px',
-          height: '100vh',
+          position: "relative",
+          width: "530px",
+          height: "100vh",
+          // ypjs3qi2oz 강
         }}
       >
         <MapSetting />
