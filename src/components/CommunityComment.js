@@ -71,15 +71,19 @@ function CommunityComment(props) {
     // 댓글 등록 버튼
     if (userNic.userId) {
       if (!addComment) {
-        alert("댓글을 입력하쇼");
+        alert("댓글을 입력해주세요.");
       } else {
-        const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/community/communityComment`, { addComment, postId }, { withCredentials: true });
+        const result = await axios.post(
+          `${process.env.REACT_APP_ADDRESS}/community/communityComment`,
+          { addComment, postId },
+          { withCredentials: true }
+        );
 
         setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
         setAddComment("");
       }
     } else {
-      alert("로그인하쇼");
+      alert("로그인 시 사용 가능합니다.");
     }
   };
   useEffect(() => {

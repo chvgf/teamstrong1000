@@ -163,7 +163,7 @@ function CommunityListItem(props) {
       setIconRed(!iconRed);
       setLike(Number(`${iconRed ? like - 1 : like + 1}`));
     } else {
-      alert("로그인을 하시게나");
+      alert("로그인 시 사용 가능합니다.");
     }
   };
   const handleComment = () => {
@@ -237,7 +237,11 @@ function CommunityListItem(props) {
         <div className="div-between">
           {
             <div>
-              <button className={`${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`} value={iconRed} onClick={handleLike}>
+              <button
+                className={`${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
+                value={iconRed}
+                onClick={handleLike}
+              >
                 favorite
               </button>
               <span>{like}</span> {/* 좋아요 수 */}

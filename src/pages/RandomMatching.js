@@ -135,7 +135,7 @@ function RandomMatching(props) {
 
   return (
     <RanItemWrapper>
-      <header className="랜덤매칭">랜덤매칭테테테테테스트</header>
+      <header className="랜덤매칭">랜덤매칭</header>
       <hr />
       <main className="matchingBox">
         <section
