@@ -264,7 +264,7 @@ function PostList(props) {
 
       <div className="insertMatching">
         <PostInsertBtn onClick={() => navigate("/postInsert")}>게시글 추가</PostInsertBtn>
-        <RandomMatching onClick={() => navigate("/RandomMatching")}>*랜덤 매칭*</RandomMatching>
+        <RandomMatching onClick={() => navigate(/* "/RandomMatching" */ "/login")}>*랜덤 매칭*</RandomMatching>
       </div>
     </PostListWrapper>
   );
