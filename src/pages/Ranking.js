@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Header from "./Header";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTeamInfo, getTeamInfo } from "../features/useinfo/userInfoSlice";
-import logoImg from "../img/logo2.png";
 
 const RankingWrapper = styled.div`
   background-color: #001a35;

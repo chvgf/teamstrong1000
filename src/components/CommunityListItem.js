@@ -129,7 +129,7 @@ function CommunityListItem(props) {
   }, [iconRed]);
 
   const test = communiyCotmmentNum?.filter((id) => {
-    return id.commentPostId == postId;
+    return id.commentPostId === postId;
   });
 
   function elapsedTime(date) {
@@ -173,7 +173,7 @@ function CommunityListItem(props) {
   const handleDelete = async () => {
     // 게시글 삭제
     try {
-      if (userNic == loginUserNic.userId) {
+      if (userNic === loginUserNic.userId) {
         await axios.post(`${process.env.REACT_APP_ADDRESS}/community/delete`, { postId });
       } else {
         alert("내가쓴 글만 삭제 가능!");
@@ -184,7 +184,7 @@ function CommunityListItem(props) {
   };
   const handleEdit = async () => {
     // 게시글 수정
-    if (userNic == loginUserNic.userId) {
+    if (userNic === loginUserNic.userId) {
       navigate(`/CommunityEdit/${postId}`);
     } else {
       alert("내가쓴 글만 수정 가능!");
@@ -207,7 +207,7 @@ function CommunityListItem(props) {
           <>
             {
               <div className="div-center">
-                <img src={props.imagePath} />
+                <img src={props.imagePath} alt="img" />
               </div>
             }
 

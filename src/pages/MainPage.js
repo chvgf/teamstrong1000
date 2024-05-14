@@ -3,10 +3,9 @@ import Header from "./Header";
 import NavList from "./NavList";
 import PostList from "./PostList";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { getAllCalendarInfo, getAllTeamInfo, getAllUserInfo, getLoginUser, getLoginUserInfo } from "../features/useinfo/userInfoSlice";
-import { getAllUserPostList } from "../features/postListSlice/postListInsertSlice";
+import { getAllUserInfo } from "../features/useinfo/userInfoSlice";
 
 const MainWrapper = styled.div`
   background-color: #fff;
@@ -28,25 +27,6 @@ function MainPage(props) {
         console.error(error);
       });
   }, []);
-  // const doSometing = async () => {
-  //   const result = await axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
-  //   dispatch(getAllUserInfo(result.data.data))
-  // };
-  // useEffect(() => {
-  //   doSometing();
-  // }, [])
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3000/team`)
-  //     .then(response => dispatch(getAllTeamInfo(response.data)))
-  //     .catch(error => console.error(error))
-  // }, [])
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3000/myCalendar`)
-  //   .then(response => {
-  //     dispatch(getAllCalendarInfo(response.data))
-  //   })
-  //   .catch(error => console.error(error))
-  // }, []);
 
   return (
     <MainWrapper>

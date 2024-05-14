@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { getLoginUser } from "../features/useinfo/userInfoSlice";
 
 const CommunityEditWrapper = styled.div`
   background-color: #fff;
@@ -118,7 +116,6 @@ const CancelButton = styled.button`
 
 function CommunityEdit(props) {
   const navigate = useNavigate();
-  const userNic = useSelector(getLoginUser);
   const { postId } = useParams();
 
   const [insertContent, setInsertContent] = useState("");
@@ -157,7 +154,6 @@ function CommunityEdit(props) {
   };
 
   const handlePushCommunity = async () => {
-    // 아니 이건 왜 안됨????
     await axios.post(`${process.env.REACT_APP_ADDRESS}/community/edit/${postId}`, { communityInput });
     navigate("/community");
   };

@@ -2,9 +2,8 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getAllCommunityInsert } from "../features/communityListSlice/communityListSlice";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getLoginUser } from "../features/useinfo/userInfoSlice";
 
 const CommunityInsertWrapper = styled.div`

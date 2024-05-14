@@ -160,7 +160,6 @@ function MyPage(props) {
   const [matchList, setMatchList] = useState([]);
   const [winPoint, setWinPoint] = useState(0);
   const [losePonit, setLosePonit] = useState(0);
-  const loginUser = useSelector(getLoginUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -219,7 +218,7 @@ function MyPage(props) {
               userId={match.id.userId}
               selectDate={match.selectDate}
               postId={match?.postId}
-              lo={match.news?.postId == match.postId ? "red" : ""}
+              lo={match.news?.postId === match.postId ? "red" : ""}
               check={match.check ? "check" : ""}
               win={match.winner?.win === "win" ? "win" : ""}
               reFresh={reFresh}

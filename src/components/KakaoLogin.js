@@ -17,7 +17,7 @@ function KakaoLogin(props) {
 
   return (
     <KakaoBtn onClick={handleLogin}>
-      <img src={KakaoImg} />
+      <img src={KakaoImg} alt="kakaoimg" />
     </KakaoBtn>
   );
 }

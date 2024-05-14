@@ -1,6 +1,6 @@
 import { Container as MapDiv } from "react-naver-maps";
 import { NavermapsProvider } from "react-naver-maps";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import MapSetting from "../components/MapSetting";
 
 function Map() {

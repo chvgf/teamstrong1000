@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUserInfo, getLoginUserInfo, getUserInfo, selectUserList } from "../features/useinfo/userInfoSlice";
+import { useDispatch } from "react-redux";
+import { getLoginUserInfo } from "../features/useinfo/userInfoSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -69,21 +69,23 @@ const LogoImg = styled.img`
 function Login(props) {
   const [inputUserId, setInputUserId] = useState("");
   const [inputUserPass, setInputUserPass] = useState("");
-  const [loingBtn, setLoginBtn] = useState(false);
-  const userInfo = useSelector(selectUserList);
   const location = useLocation();
 
   const dispatch = useDispatch();
 
   const handLogin = async () => {
-    if (inputUserId == "") {
+    if (inputUserId === "") {
       toast.error("아이디를 입력해주세요!");
       return;
     } else if (inputUserPass === "") {
       toast.error("비밀번호를 입력해주세요!");
       return;
     } else {
-      const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/user/login`, { userId: inputUserId, passwd: inputUserPass }, { withCredentials: true });
+      const result = await axios.post(
+        `${process.env.REACT_APP_ADDRESS}/user/login`,
+        { userId: inputUserId, passwd: inputUserPass },
+        { withCredentials: true }
+      );
 
       if (!result.data.flag) {
         return alert("로그인 실패");

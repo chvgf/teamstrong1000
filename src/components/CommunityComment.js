@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CommunityCommentListItem from "./CommunityCommentListItem";
 import axios from "axios";
@@ -64,7 +64,7 @@ function CommunityComment(props) {
 
   const postId = props.postId;
   const filterComment = addCommentE?.filter((id) => {
-    return id.commentPostId == postId;
+    return id.commentPostId === postId;
   });
   const changeAddComment = (e) => setAddComment(e.target.value);
   const handleAddComment = async () => {

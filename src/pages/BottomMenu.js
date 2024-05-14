@@ -1,12 +1,9 @@
-import React from 'react';
+import React from "react";
 import { styled } from "styled-components";
 import { MdDensityMedium, MdCalendarMonth, MdPerson, MdGroups } from "react-icons/md";
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getLoginUser } from '../features/useinfo/userInfoSlice';
-import { useEffect } from 'react';
-import axios from 'axios';
-
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getLoginUser } from "../features/useinfo/userInfoSlice";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -22,7 +19,7 @@ const ButtonArea = styled.div`
   height: 55px;
   background: #1c1b1f;
   z-index: 99;
-  `;
+`;
 
 const ButtonStyle = styled.div`
   display: flex;
@@ -36,23 +33,21 @@ const ButtonStyle = styled.div`
   svg {
     font-size: 28px;
   }
-
 `;
 
 function BottomMenu(props) {
   const loginUser = useSelector(getLoginUser);
-    // useEffect( async () => {
-    //   if (loginUser) {
-    //     await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true})
-    //   } else {
-    //     return
-    //   }
-    // }, []);
+  // useEffect( async () => {
+  //   if (loginUser) {
+  //     await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true})
+  //   } else {
+  //     return
+  //   }
+  // }, []);
 
-  
   const navigate = useNavigate();
   const isLoginUser = () => {
-    navigate('/myCalendar');
+    navigate("/myCalendar");
     // if (loginUser) {
     //   navigate('/myCalendar');
     // } else {
@@ -64,7 +59,7 @@ function BottomMenu(props) {
   return (
     <>
       <ButtonArea>
-        <ButtonStyle onClick={() => navigate('/')}>
+        <ButtonStyle onClick={() => navigate("/")}>
           <MdDensityMedium />
           HOME
         </ButtonStyle>
@@ -72,22 +67,21 @@ function BottomMenu(props) {
           <MdCalendarMonth />
           내일정
         </ButtonStyle>
-        <ButtonStyle onClick={() => navigate('/club')}>
+        <ButtonStyle onClick={() => navigate("/club")}>
           <MdGroups />
           클럽
         </ButtonStyle>
-        { loginUser 
-          ?
-          <ButtonStyle onClick={() => navigate('/myPage')}>
+        {loginUser ? (
+          <ButtonStyle onClick={() => navigate("/myPage")}>
             <MdPerson />
             마이페이지
           </ButtonStyle>
-          :
-          <ButtonStyle onClick={() => navigate('/login')}>
+        ) : (
+          <ButtonStyle onClick={() => navigate("/login")}>
             <MdPerson />
             로그인
           </ButtonStyle>
-        }
+        )}
       </ButtonArea>
 
       <Outlet />

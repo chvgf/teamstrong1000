@@ -186,48 +186,6 @@ function RandomMatching(props) {
             </>
           }
         </section>
-        {/* <div
-          className="matchingBoxItem"
-          onClick={() => {
-            navigate(
-              `/matchingPost/${
-                reMatching?.data.data[randomIndexArray[0]]._id
-                  ? reMatching?.data.data[randomIndexArray[0]]._id
-                  : getMatchingPost?.data.data[randomIndexArray[0]]._id
-              }`
-            );
-          }}
-        >
-          {reMatching?.data.data[randomIndexArray[0]].content ? (
-            <span>
-              게임: {reMatching?.data.data[randomIndexArray[0]].game} <br />
-              지역: {reMatching?.data.data[randomIndexArray[0]].district} <br />
-              구력: {reMatching?.data.data[randomIndexArray[0]].id.grade}
-            </span>
-          ) : (
-            <span>
-              게임: {getMatchingPost?.data.data[randomIndexArray[0]].game} <br />
-              지역: {getMatchingPost?.data.data[randomIndexArray[0]].district} <br />
-              구력: {getMatchingPost?.data.data[randomIndexArray[0]].id.grade}
-            </span>
-          )}
-        </div> */}
-        {/* <div
-          className="matchingBoxItem"
-          onClick={() => {
-            navigate(
-              `/matchingPost/${
-                reMatching?.data.data[randomIndexArray[1]]._id
-                  ? reMatching?.data.data[randomIndexArray[1]]._id
-                  : getMatchingPost?.data.data[randomIndexArray[1]]._id
-              }`
-            );
-          }}
-        >
-          {reMatching?.data.data[randomIndexArray[1]].content
-            ? reMatching?.data.data[randomIndexArray[1]].content
-            : getMatchingPost?.data.data[randomIndexArray[1]].content}
-        </div> */}
 
         <button className="reMatchingBtn" onClick={handleRandom}>
           재 매칭

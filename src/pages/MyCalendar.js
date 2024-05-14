@@ -1,8 +1,7 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import FullCalendar from '@fullcalendar/react';
+import FullCalendar from "@fullcalendar/react";
 import styled from "styled-components";
 import { useState } from "react";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
@@ -15,8 +14,7 @@ const CalendarWrapper = styled.div`
   width: 530px;
   height: 100vh;
   background: #fff;
-  
-  
+
   th a {
     color: #fff;
     text-decoration: none;
@@ -30,7 +28,7 @@ const CalendarWrapper = styled.div`
     border: 1px solid #5e0afd3b;
   }
   .fc-event {
-    background-color: #4610C0;
+    background-color: #4610c0;
     border: none;
     border-radius: 15px;
     padding: 1px 5px;
@@ -38,40 +36,50 @@ const CalendarWrapper = styled.div`
     font-weight: bold;
   }
   .fc-button {
-    background-color: #4610C0;
+    background-color: #4610c0;
     border: none;
     border-radius: 10px;
   }
   .fc-button:hover {
-    background-color: #5E0AFD;
+    background-color: #5e0afd;
   }
   .fc-header-toolbar {
     margin-top: 24px;
   }
   .fc-toolbar-title {
-    background-color: #4610C0;
+    background-color: #4610c0;
     color: #fff;
     padding: 5px;
     border-radius: 10px;
   }
   .fc-col-header {
-    background-color: #4610C0;
+    background-color: #4610c0;
     color: #fff;
   }
 
-  .fc-day-sun div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner { background-color: #ffe5e3; }
-  .fc-day-sat div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner { background-color: #ffe5e3; }
-  td.fc-day.fc-day-sat.fc-day-future.fc-daygrid-day a{ color: red;}
-  td.fc-day.fc-day-sat.fc-day-past.fc-daygrid-day a{ color: red;}
-  td.fc-day.fc-day-sun.fc-day-future.fc-daygrid-day a{ color: red;}
-  td.fc-day.fc-day-sun.fc-day-past.fc-daygrid-day a{ color: red;}
-
-  
-  `;
+  .fc-day-sun div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    background-color: #ffe5e3;
+  }
+  .fc-day-sat div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    background-color: #ffe5e3;
+  }
+  td.fc-day.fc-day-sat.fc-day-future.fc-daygrid-day a {
+    color: red;
+  }
+  td.fc-day.fc-day-sat.fc-day-past.fc-daygrid-day a {
+    color: red;
+  }
+  td.fc-day.fc-day-sun.fc-day-future.fc-daygrid-day a {
+    color: red;
+  }
+  td.fc-day.fc-day-sun.fc-day-past.fc-daygrid-day a {
+    color: red;
+  }
+`;
 
 const InputArea = styled.div`
   padding: 50px;
-  background: #4610C0;
+  background: #4610c0;
   border-radius: 15px;
   position: relative;
 
@@ -80,16 +88,16 @@ const InputArea = styled.div`
     border: 2px solid #fff;
     border-radius: 15px;
     padding: 5px 13px;
-    background: #FFF;
+    background: #fff;
     font-weight: bold;
     position: absolute;
     right: 50px;
     transition: 0.3s;
   }
   button:hover {
-    background: #FF5959;
-    border: 2px solid #FF5959;
-    color: #FFF;
+    background: #ff5959;
+    border: 2px solid #ff5959;
+    color: #fff;
   }
 `;
 const InputH4 = styled.p`
@@ -98,7 +106,6 @@ const InputH4 = styled.p`
   font-weight: bold;
 `;
 const InputAreaDetail = styled.div`
-
   & + & {
     margin-top: 10px;
   }
@@ -110,7 +117,7 @@ const InputAreaDetail = styled.div`
     width: 350px;
     padding: 5px 10px;
     color: black;
-    background: #FFF;
+    background: #fff;
     outline: none;
     border: none;
     border-radius: 10px;
@@ -118,33 +125,31 @@ const InputAreaDetail = styled.div`
     transition: 0.3s;
   }
   input:focus {
-    color: #FFF;
+    color: #fff;
     background: #8169b8;
   }
-
 `;
 
 function MyCalendar(props) {
-  const [todo, setTodo] = useState('');
-  const [inputStartDate, setInputStartDate] = useState('');
-  const [inputEndDate, setInputEndDate] = useState('');
+  const [todo, setTodo] = useState("");
+  const [inputStartDate, setInputStartDate] = useState("");
+  const [inputEndDate, setInputEndDate] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  
+
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true })
+    axios
+      .get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true })
       .then((res) => {
         dispatch(getAllCalendarInfo(res.data.data));
       })
       .catch((res) => {
         console.log(res.data);
-      })
+      });
   }, [setInputEndDate]);
-  
+
   const calendarList = useSelector(getMyCalendarInfo);
-  
-  
+
   const handletodo = (e) => {
     setTodo(e.target.value);
   };
@@ -161,24 +166,30 @@ function MyCalendar(props) {
   };
 
   const handlePush = async () => {
-    const result = await axios.post(`
-      ${process.env.REACT_APP_ADDRESS}/myCalendar/directInsert`, { 
-          title: todo, start: inputStartDate, end: inputEndDate 
-        }, {
-          withCredentials: true
-      });
+    const result = await axios.post(
+      `
+      ${process.env.REACT_APP_ADDRESS}/myCalendar/directInsert`,
+      {
+        title: todo,
+        start: inputStartDate,
+        end: inputEndDate,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     if (result.data.flag) {
       alert(result.data.message);
-      navigate('/');
+      navigate("/");
     } else {
       alert(result.data.message);
-      navigate('/login');
-    };
+      navigate("/login");
+    }
   };
 
   if (!calendarList) {
     return null;
-  };
+  }
 
   return (
     <>
@@ -188,55 +199,47 @@ function MyCalendar(props) {
           initialView="dayGridMonth"
           dayMaxEvents={true}
           events={calendarList}
-          height={'550px'}
-          width={'500px'}
+          height={"550px"}
+          width={"500px"}
           editable={false}
-          locale='ko'
+          locale="ko"
           googleCalendarApiKey="AIzaSyBKjGhLK_Xjl8DgqkIMLiWIzGdPrivNWM4"
           eventSources={[
             {
-              googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com", 
-              color: 'red', 
-              textColor: 'white'
-            }
+              googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
+              color: "red",
+              textColor: "white",
+            },
           ]}
-          dayCellContent= {function (info) {
+          dayCellContent={function (info) {
             let number = document.createElement("a");
             number.classList.add("fc-daygrid-day-number");
             number.innerHTML = info.dayNumberText.replace("일", "");
             if (info.view.type === "dayGridMonth") {
               return {
-                html: number.outerHTML
+                html: number.outerHTML,
               };
             }
             return {
-              domNodes: []
-            }
+              domNodes: [],
+            };
           }}
         />
-        
+
         <InputArea>
           <InputAreaDetail>
-            <InputH4>
-              추가할 일정
-            </InputH4>
-            <input type="text" value={todo} onChange={handletodo}/>
+            <InputH4>추가할 일정</InputH4>
+            <input type="text" value={todo} onChange={handletodo} />
           </InputAreaDetail>
           <InputAreaDetail>
-            <InputH4>
-              시작할 날짜
-            </InputH4>
-            <input type="date" value={inputStartDate} onChange={handleinputStartDate}/>
+            <InputH4>시작할 날짜</InputH4>
+            <input type="date" value={inputStartDate} onChange={handleinputStartDate} />
           </InputAreaDetail>
           <InputAreaDetail>
-            <InputH4>
-              끝낼 날짜
-            </InputH4>
-            <input type="date" value={inputEndDate} onChange={handleInputEndDate}/>
+            <InputH4>끝낼 날짜</InputH4>
+            <input type="date" value={inputEndDate} onChange={handleInputEndDate} />
           </InputAreaDetail>
-          <button onClick={() => handlePush()}>
-            일정 추가하기
-          </button>
+          <button onClick={() => handlePush()}>일정 추가하기</button>
         </InputArea>
       </CalendarWrapper>
     </>

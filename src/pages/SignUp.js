@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, pushUserInfo, selectUserList } from "../features/useinfo/userInfoSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -71,7 +69,6 @@ function SignUp(props) {
   const [inputUserClub, setInputUserClub] = useState("");
   const signUp = { id: inputUserId, passwd: inputUserPass, nick: inputUserNick, grade: inputUserGrade, teamName: inputUserClub };
   const navigate = useNavigate();
-  const userId = useSelector(selectUserList);
 
   const handleInputUserId = (e) => {
     setInputUserId(e.target.value);

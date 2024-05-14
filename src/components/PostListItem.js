@@ -1,10 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import PostDetail from "../pages/PostDetail";
-import { useSelector } from "react-redux";
-import { getLoginUser } from "../features/useinfo/userInfoSlice";
-import axios from "axios";
 
 const PostListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -66,7 +62,6 @@ const PostListItemWrapper = styled.div`
 
 function PostListItem(props) {
   const navigate = useNavigate();
-  const loginUser = useSelector(getLoginUser);
 
   const isLoginUser = () => {
     navigate(`/matchingPost/${props.address}`);

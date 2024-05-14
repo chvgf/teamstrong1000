@@ -1,9 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import CommunityList from '../components/CommunityList';
-import logoImg from "../img/logo2.png";
-
-
+import React from "react";
+import styled from "styled-components";
+import CommunityList from "../components/CommunityList";
 
 const CommunityWrapper = styled.div`
   background-color: #fff;
@@ -18,30 +15,25 @@ const CommunityWrapper = styled.div`
     margin: 0 0 30px 55px;
   }
 
-    .매칭찾기 {
+  .매칭찾기 {
     margin: 44px 0 14px 37px;
     color: #1c1b1f;
     font-size: 24px;
     font-weight: 800;
   }
-  
+
   hr {
     margin: 0 37px;
-    border: 1px solid #4610C0;
+    border: 1px solid #4610c0;
     margin-bottom: 37px;
   }
-  
-  
-  
 `;
-
-
 
 function Community(props) {
   return (
     <CommunityWrapper>
-      <div className='매칭찾기'>커뮤니티</div>
-      <hr/>
+      <div className="매칭찾기">커뮤니티</div>
+      <hr />
       <CommunityList />
     </CommunityWrapper>
   );
